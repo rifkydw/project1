@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itm1"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/itm2"
+        android:icon="@drawable/baseline_article_24"
+        android:title="Data Soal"/>
+
+    <item
+        android:id="@+id/itm3"
+        android:icon="@drawable/baseline_assignment_24"
+        android:title="Data Nilai"/>
+
+    <item
+        android:id="@+id/itm4"
+        android:icon="@drawable/baseline_group_24"
+        android:title="Data Guru dan Murid"/>
+
+    <item
+        android:id="@+id/itm5"
+        android:icon="@drawable/baseline_account_box_24"
+        android:title="Account"/>
+</menu>
