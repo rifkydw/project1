@@ -1,6 +1,5 @@
 <!-- res/layout/activity_admin.xml -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,47 +8,47 @@
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
-        android:padding="20dp"
         android:layout_height="wrap_content"
-        android:hint="Nama" />
+        android:hint="Nama"
+        android:padding="20dp" />
 
     <EditText
         android:id="@+id/editTextEmail"
-        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Email"
         android:inputType="textEmailAddress"
-        android:hint="Email" />
+        android:padding="20dp" />
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Password"
         android:inputType="textPassword"
-        android:hint="Password" />
+        android:padding="20dp" />
 
     <EditText
         android:id="@+id/editTextPlaceOfBirth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:hint="Tempat Lahir" />
+        android:hint="Tempat Lahir"
+        android:padding="20dp" />
 
     <EditText
         android:id="@+id/editTextDateOfBirth"
         android:layout_width="match_parent"
-        android:padding="20dp"
         android:layout_height="wrap_content"
+        android:hint="Tanggal Lahir"
         android:inputType="date"
-        android:hint="Tanggal Lahir" />
+        android:padding="20dp" />
 
     <EditText
         android:id="@+id/editTextClass"
-        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Mata Pelajaran Yang Diampuh" />
+        android:hint="Kelas"
+        android:padding="20dp" />
 
     <Button
         android:layout_marginTop="10dp"

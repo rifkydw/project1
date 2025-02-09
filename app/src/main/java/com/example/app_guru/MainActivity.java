@@ -7,6 +7,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import com.example.app_guru.fragment.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -32,20 +34,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if (itemId == R.id.itm1) {
             fragment = new HomeFragment();
         } else if (itemId == R.id.itm2) {
-            fragment = new ();
+           // fragment = new ();
         } else if (itemId == R.id.itm3) {
-            fragment = new ();
-        } else if (itemId == R.id.itm4) {
-            fragment = new ();
+          //  fragment = new ();
+        }else if (itemId == R.id.itm4) {
+          //  fragment = new ();
         } else if (itemId == R.id.itm5) {
-            fragment = new ();
-        } else {
+           // fragment = new ();
+        }else {
             // Penanganan jika itemId tidak cocok dengan yang diharapkan
         }
 
         return loadFragment(fragment);
     }
-
 
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {

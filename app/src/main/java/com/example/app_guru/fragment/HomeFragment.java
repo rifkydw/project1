@@ -1,5 +1,5 @@
 
-package com.example.app_guru;
+package com.example.app_guru.fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,10 @@ import android.content.Intent;
 import androidx.fragment.app.Fragment;
 
 import com.example.app_guru.Adapter.UjianAdapter;
+import com.example.app_guru.Detail.DetailUjian;
+import com.example.app_guru.R;
+import com.example.app_guru.TambahUjian;
+import com.example.app_guru.Ujian;
 import com.google.firebase.database.*;
 import java.util.*;
 
@@ -21,9 +25,9 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(com.example.app_guru.R.layout.fragment_home, container, false);
 
-        ujianListView = view.findViewById(R.id.LV_HF); // Pastikan ID ini benar di layout XML
+        ujianListView = view.findViewById(com.example.app_guru.R.id.LV_HF); // Pastikan ID ini benar di layout XML
         ujianInfoList = new ArrayList<>();
         ujianAdapter = new UjianAdapter(getActivity(), ujianInfoList);
         ujianListView.setAdapter(ujianAdapter);

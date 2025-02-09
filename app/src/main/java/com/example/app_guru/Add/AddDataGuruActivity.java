@@ -1,17 +1,14 @@
-package com.example.app_guru;
+package com.example.app_guru.Add;
 
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.example.app_guru.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +20,6 @@ import java.util.Map;
 public class AddDataGuruActivity extends AppCompatActivity {
 
     private EditText editTextName, editTextEmail, editTextPassword, editTextPlaceOfBirth, editTextDateOfBirth, editTextClass;
-    private RadioGroup radioGroupUserType;
     private Button buttonAddUser;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -38,8 +34,6 @@ public class AddDataGuruActivity extends AppCompatActivity {
         editTextPlaceOfBirth = findViewById(R.id.editTextPlaceOfBirth);
         editTextDateOfBirth = findViewById(R.id.editTextDateOfBirth);
         editTextClass = findViewById(R.id.editTextClass);
-
-        radioGroupUserType = findViewById(R.id.radioGroupUserType);
         buttonAddUser = findViewById(R.id.buttonAddUser);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -54,7 +48,6 @@ public class AddDataGuruActivity extends AppCompatActivity {
         String placeOfBirth = editTextPlaceOfBirth.getText().toString().trim();
         String dateOfBirth = editTextDateOfBirth.getText().toString().trim();
         String studentClass = editTextClass.getText().toString().trim();
-        boolean isTeacher = radioGroupUserType.getCheckedRadioButtonId() == R.id.radioButtonTeacher;
 
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || placeOfBirth.isEmpty() || dateOfBirth.isEmpty() || studentClass.isEmpty()) {
             Toast.makeText(this, "Semua field harus diisi", Toast.LENGTH_SHORT).show();
@@ -73,7 +66,6 @@ public class AddDataGuruActivity extends AppCompatActivity {
                             userData.put("Tempat_Lahir", placeOfBirth);
                             userData.put("Tanggal_Lahir", dateOfBirth);
                             userData.put("Mapel", studentClass);
-                            userData.put("Jenis_Kelamin", isTeacher ? "Laki-Laki" : "Perempuan");
 
                             databaseReference.child("Guru").child(firebaseUser.getUid()).setValue(userData)
                                     .addOnCompleteListener(dbTask -> {
@@ -97,7 +89,6 @@ public class AddDataGuruActivity extends AppCompatActivity {
         editTextPlaceOfBirth.setText("");
         editTextDateOfBirth.setText("");
         editTextClass.setText("");
-        radioGroupUserType.clearCheck();
 
     }
 }
