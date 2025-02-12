@@ -13,7 +13,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.app_guru.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class EditGuruActivity extends AppCompatActivity {
     private EditText editTextName, editTextClass, editTextEmail, editTextDateOfBirth, editTextPlaceOfBirth;
@@ -44,5 +49,81 @@ public class EditGuruActivity extends AppCompatActivity {
             finish();
             return;
         }
+        guruRef = FirebaseDatabase.getInstance().getReference("Guru").child(guruKey);
+        // Mengambil data guru dari Firebase
+        guruRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String name = dataSnapshot.child("nama").getValue(String.class);
+                    String kelas = dataSnapshot.child("Mapel").getValue(String.class);
+                    String email = dataSnapshot.child("email").getValue(String.class);
+                    String tanggalLahir = dataSnapshot.child("Tanggal_Lahir").getValue(String.class);
+                    String tempatLahir = dataSnapshot.child("Tempat_Lahir").getValue(String.class);
+
+                    editTextName.setText(name != null ? name : "");
+                    editTextClass.setText(kelas != null ? kelas : "");
+                    editTextEmail.setText(email != null ? email : "");
+                    editTextDateOfBirth.setText(tanggalLahir != null ? tanggalLahir : "");
+                    editTextPlaceOfBirth.setText(tempatLahir != null ? tempatLahir : "");
+                } else {
+                    Toast.makeText(EditGuruActivity.this, "Data murid tidak ditemukan", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(EditGuruActivity.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Menyimpan perubahan saat tombol "Simpan" diklik
+        btnSave.setOnClickListener(v -> {
+            String newName = editTextName.getText().toString().trim();
+            String newClass = editTextClass.getText().toString().trim();
+            String newEmail = editTextEmail.getText().toString().trim();
+            String newDateOfBirth = editTextDateOfBirth.getText().toString().trim();
+            String newPlaceOfBirth = editTextPlaceOfBirth.getText().toString().trim();
+
+            if (newName.isEmpty() || newClass.isEmpty() || newEmail.isEmpty() || newDateOfBirth.isEmpty() || newPlaceOfBirth.isEmpty()) {
+                Toast.makeText(EditGuruActivity.this, "Semua field harus diisi", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Memperbarui data guru di Firebase
+            guruRef.child("nama").setValue(newName);
+            guruRef.child("Mapel").setValue(newClass);
+            guruRef.child("email").setValue(newEmail);
+            guruRef.child("Tanggal_Lahir").setValue(newDateOfBirth);
+            guruRef.child("Tempat_Lahir").setValue(newPlaceOfBirth);
+
+            Toast.makeText(EditGuruActivity.this, "Data guru berhasil diperbarui", Toast.LENGTH_SHORT).show();
+            finish(); // Kembali ke aktivitas sebelumnya setelah disimpan
+        });
+
+        // Menghapus data guru saat tombol "Hapus" diklik
+        btnDelete.setOnClickListener(v -> {
+            guruRef.removeValue().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = auth.getCurrentUser();
+
+                    if (user != null) {
+                        user.delete().addOnCompleteListener(deleteTask -> {
+                            if (deleteTask.isSuccessful()) {
+                                Toast.makeText(EditGuruActivity.this, "Data murid dan akun berhasil dihapus", Toast.LENGTH_SHORT).show();
+                                finish(); // Kembali ke aktivitas sebelumnya setelah dihapus
+                            } else {
+                                Toast.makeText(EditGuruActivity.this, "Gagal menghapus akun murid", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(EditGuruActivity.this, "Akun murid tidak ditemukan", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(EditGuruActivity.this, "Gagal menghapus data murid", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
     }
 }
